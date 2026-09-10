@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {createRecord,createWorkspaceStore,toggleKept,continuationPrompt,exportWorkspace,importWorkspace,exportTakeaways,normaliseRecord} from '../../pss/web/static/workspaces.js';
+const board=()=>createRecord({id:'test',title:'Question',prompt:'Where next?',nodes:[{id:'root',title:'A thought',body:'Full body '.repeat(1000),full:true}]},'live');
+test('kept thoughts are full snapshots, survive reload and export with personal notes',()=>{
+  const values=new Map(),storage={getItem:k=>values.get(k),setItem:(k,v)=>values.set(k,v)},store=createWorkspaceStore(storage),r=board();
+  toggleKept(r,r.nodes[0]);r.notes.root='My interpretation';r.takeaway='A useful tension';r.nextMove='Try one small thing';store.save(r);
+  r.nodes[0].body='Later model update';
+  const reloaded=createWorkspaceStore(storage).get(r.id);
+  assert.equal(reloaded.kept[0].body,'Full body '.repeat(1000));
+  assert.match(exportTakeaways(reloaded),/My interpretation/);assert.match(exportTakeaways(reloaded),/Try one small thing/);
+  assert.deepEqual(importWorkspace(exportWorkspace(reloaded)),reloaded);
+});
+test('partial previews cannot be kept or continued',()=>{const r=board();r.nodes[0].full=false;assert.throws(()=>toggleKept(r,r.nodes[0]));assert.throws(()=>continuationPrompt(r,r.nodes[0]));});
+test('continuation is bounded, labeled, linked and leaves its source untouched',()=>{const r=board(),before=JSON.stringify(r),p=continuationPrompt(r,r.nodes[0]);assert.ok(p.excerpt);assert.match(p.text,/Source excerpt/);assert.equal(p.origin.workspaceId,r.id);assert.ok(p.text.length<6000);assert.equal(JSON.stringify(r),before);});
+test('malformed saved storage is preserved, not silently replaced',()=>{let writes=0;const store=createWorkspaceStore({getItem:()=>'{broken',setItem:()=>writes++});assert.equal(store.save(board()).saved,false);assert.equal(writes,0);assert.match(store.warning(),/not been overwritten/);});
+test('storage failure retains recoverable memory with explicit warning',()=>{const store=createWorkspaceStore({getItem:()=>null,setItem:()=>{throw Error('quota');}});assert.equal(store.save(board()).saved,false);assert.ok(store.get('test'));assert.match(store.warning(),/Export/);});
+test('malicious IDs and unsupported imports are rejected',()=>{assert.throws(()=>normaliseRecord({...board(),nodes:[{id:'__proto__'}]}));assert.throws(()=>importWorkspace('{"version":1}'));});
+test('active product keeps model text out of HTML and uses encoded detail IDs and token boundary',async()=>{const source=await readFile(new URL('../../pss/web/static/product.js',import.meta.url),'utf8');assert.ok(!source.includes('innerHTML'));assert.match(source,/encodeURIComponent\(id\)/);assert.match(source,/x-pss-token/);assert.match(source,/ensureFull/);});

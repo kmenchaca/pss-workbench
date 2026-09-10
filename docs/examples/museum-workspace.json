@@ -1,0 +1,202 @@
+{
+  "format": "pss-workspace",
+  "version": 3,
+  "record": {
+    "id": "f1eefd8dff734b658016d5f99ee96ba7",
+    "title": "How could a small local museum make repeat visits worthwhile with a tiny budget ",
+    "prompt": "How could a small local museum make repeat visits worthwhile with a tiny budget and no new permanent exhibits? Develop practical, distinct directions.",
+    "source": "live",
+    "nodes": [
+      {
+        "id": "root",
+        "parent": null,
+        "title": "The Rotating \"Micro-Lens\" Strategy",
+        "lens": "STARTING POINT",
+        "summary": "Core Idea: Change the narrative perspective monthly (e.g., \"Objects as Tools\" vs. \"Objects as Failures\"), rewriting labels and adding one cheap, thema",
+        "body": "**Title: The Rotating \"Micro-Lens\" Strategy**\n\n**Core Idea:** Change the narrative perspective monthly (e.g., \"Objects as Tools\" vs. \"Objects as Failures\"), rewriting labels and adding one cheap, thematic object.\n\n**Example:** Shift from \"Town History\" to \"Sound and Silence,\" using old photos to discuss ambient noise, paired with a single donated, broken radio.\n\n**Tradeoff:** Requires significant staff time for constant re-labeling and curatorial writing, risking burnout if not carefully scheduled.",
+        "tradeoff": "",
+        "next": "",
+        "preview": "**Title: The Rotating \"Micro-Lens\" Strategy**\n\n**Core Idea:** Change the narrative perspective monthly (e.g., \"Objects as Tools\" vs. \"Objects as Failures\"), rewriting labels and adding one cheap, thematic object.\n\n**Example:** Shift from \"Town History\" to \"Sound and Silence,\" using old photos to discuss ambient noise, paired with a single donated, broken radio.\n\n**Tradeoff:** Requires significant staff time for constant re-labeling and curatorial writing, risking burnout if not carefully schedul",
+        "angle": "",
+        "status": "terminated",
+        "bodySource": "Model output · check factual claims",
+        "terminationReason": "completed",
+        "branchBrief": "",
+        "full": true,
+        "messages": [
+          {
+            "role": "system",
+            "content": "Choose ONE concrete approach to the user's question and develop it. Do not list multiple approaches. Write a short title, the core idea, one specific example, and the most important tradeoff. Keep your entire response under 90 words. Treat proposals as possibilities, not facts."
+          },
+          {
+            "role": "user",
+            "content": "How could a small local museum make repeat visits worthwhile with a tiny budget and no new permanent exhibits? Develop practical, distinct directions."
+          },
+          {
+            "role": "assistant",
+            "content": "**Title: The Rotating \"Micro-Lens\" Strategy\n\n**Core Idea:** Instead of adding objects, change the narrative perspective. Rotate the primary interpretive lens (e.g., \"Objects as Tools,\" \"Objects as Artifacts of Failure\") every month, rewriting labels and adding one new, cheaply sourced object that supports the new theme.\n\n**Example:** A local history museum shifts from a standard \"Town History\" view to a \"Sound and Silence\" theme, using old photographs to discuss ambient noise levels, paired with a single donated, broken radio.\n\n**Tradeoff:** Requires significant staff time for constant re-labeling and curatorial writing, risking burnout if not carefully scheduled."
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nYou've been exploring for a while. Time to decide.\n\nYou MUST respond with EXACTLY ONE of these two actions:\n\n**CONTINUE** - Keep going on this path if you're making progress\nExample: {\"action\": \"continue\"}\n\n**BRANCH** - Spawn alternative approaches to explore different strategies in parallel\nExample: {\"action\": \"branch\", \"branches\": [\"try approach A\", \"try approach B\"], \"also_continue\": true}\n\nThis is an early checkpoint. You cannot terminate yet - explore more first.\n\nCall the checkpoint_decision tool with your choice. If you cannot use tools, respond with valid JSON matching one of the examples above.\n"
+          },
+          {
+            "role": "assistant",
+            "content": "{\"action\": \"branch\", \"branches\": [\"try approach A: Community-Driven 'Living Archive' where locals lend personal stories tied to existing objects monthly\", \"try approach B: 'Mystery Object' series where one existing item is spotlighted with weekly community-submitted theories and interpretations\"], \"also_continue\": true}"
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nYou've been exploring for a while. Time to decide.\n\nYou MUST respond with EXACTLY ONE of these two actions:\n\n**CONTINUE** - Keep going on this path if you're making progress\nExample: {\"action\": \"continue\"}\n\n**BRANCH** - Spawn alternative approaches to explore different strategies in parallel\nExample: {\"action\": \"branch\", \"branches\": [\"try approach A\", \"try approach B\"], \"also_continue\": true}\n\nThis is an early checkpoint. You cannot terminate yet - explore more first.\n\nCall the checkpoint_decision tool with your choice. If you cannot use tools, respond with valid JSON matching one of the examples above.\n\nYou MUST decide now. No more exploration without a decision.\n"
+          },
+          {
+            "role": "assistant",
+            "content": "{\"action\": \"branch\", \"branches\": [\"try approach A: Community-Driven 'Living Archive' where locals lend personal stories tied to existing objects monthly\", \"try approach B: 'Mystery Object' series where one existing item is spotlighted with weekly community-submitted theories and interpretations\"], \"also_continue\": true}"
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nDecision point. Choose one action:\n- {\"action\": \"continue\"} - keep exploring\n- {\"action\": \"branch\", \"branches\": [\"alt 1\", \"alt 2\"]} - spawn alternatives\n- {\"action\": \"terminate\", \"output\": \"final result\"} - done with output\n\nCall checkpoint_decision or respond with JSON.\n\nYou MUST decide now. No more exploration without a decision.\n"
+          },
+          {
+            "role": "assistant",
+            "content": "{\"action\": \"terminate\", \"output\": \"**Title: The Rotating 'Micro-Lens' Strategy\\n\\n**Core Idea:** Change the narrative perspective monthly (e.g., 'Objects as Tools' vs. 'Objects as Failures'), rewriting labels and adding one cheap, thematic object.\\n\\n**Example:** Shift from 'Town History' to 'Sound and Silence,' using old photos to discuss ambient noise, paired with a single donated, broken radio.\\n\\n**Tradeoff:** Requires significant staff time for constant re-labeling and curatorial writing, risking burnout if not carefully scheduled.\"}"
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nDecision point. Choose one action:\n- {\"action\": \"continue\"} - keep exploring\n- {\"action\": \"branch\", \"branches\": [\"alt 1\", \"alt 2\"]} - spawn alternatives\n- {\"action\": \"terminate\", \"output\": \"final result\"} - done with output\n\nCall checkpoint_decision or respond with JSON.\n\nYou MUST decide now. No more exploration without a decision.\n"
+          }
+        ]
+      },
+      {
+        "id": "root->24f8ca",
+        "parent": "root",
+        "title": "The Rotating \"Micro-Lens\" Strategy",
+        "lens": "ALTERNATIVE",
+        "summary": "Core Idea: Instead of adding objects, change the narrative perspective. Rotate the primary interpretive lens (e.g., \"Objects as Tools,\" \"Objects as Ar",
+        "body": "**Title: The Rotating \"Micro-Lens\" Strategy**\n\n**Core Idea:** Instead of adding objects, change the narrative perspective. Rotate the primary interpretive lens (e.g., \"Objects as Tools,\" \"Objects as Artifacts of Failure\") every month, rewriting labels and adding one new, cheaply sourced object that supports the new theme.\n\n**Example:** A local history museum shifts from a standard \"Town History\" view to a \"Sound and Silence\" theme, using old photographs to discuss ambient noise levels, paired with a single donated, broken radio.\n\n**Tradeoff:** Requires significant staff time for constant re-labeling and curatorial writing, risking burnout if not carefully scheduled.",
+        "tradeoff": "",
+        "next": "",
+        "preview": "**Title: The Rotating \"Micro-Lens\" Strategy**\n\n**Core Idea:** Instead of adding objects, change the narrative perspective. Rotate the primary interpretive lens (e.g., \"Objects as Tools,\" \"Objects as Artifacts of Failure\") every month, rewriting labels and adding one new, cheaply sourced object that supports the new theme.\n\n**Example:** A local history museum shifts from a standard \"Town History\" view to a \"Sound and Silence\" theme, using old photographs to discuss ambient noise levels, paired wi",
+        "angle": "",
+        "status": "terminated",
+        "bodySource": "Model output · check factual claims",
+        "terminationReason": "completed",
+        "branchBrief": "Community co-creation: residents contribute rotating displays (home videos, family stories, 'object of the month' from a local drawer), so content is evergreen and locals return to see/curate",
+        "full": true,
+        "messages": [
+          {
+            "role": "system",
+            "content": "Choose ONE concrete approach to the user's question and develop it. Do not list multiple approaches. Write a short title, the core idea, one specific example, and the most important tradeoff. Keep your entire response under 90 words. Treat proposals as possibilities, not facts."
+          },
+          {
+            "role": "user",
+            "content": "How could a small local museum make repeat visits worthwhile with a tiny budget and no new permanent exhibits? Develop practical, distinct directions."
+          },
+          {
+            "role": "assistant",
+            "content": "**Title: The Rotating \"Micro-Lens\" Strategy\n\n**Core Idea:** Instead of adding objects, change the narrative perspective. Rotate the primary interpretive lens (e.g., \"Objects as Tools,\" \"Objects as Artifacts of Failure\") every month, rewriting labels and adding one new, cheaply sourced object that supports the new theme.\n\n**Example:** A local history museum shifts from a standard \"Town History\" view to a \"Sound and Silence\" theme, using old photographs to discuss ambient noise levels, paired with a single donated, broken radio.\n\n**Tradeoff:** Requires significant staff time for constant re-labeling and curatorial writing, risking burnout if not carefully scheduled."
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nYou've been exploring for a while. Time to decide.\n\nYou MUST respond with EXACTLY ONE of these two actions:\n\n**CONTINUE** - Keep going on this path if you're making progress\nExample: {\"action\": \"continue\"}\n\n**BRANCH** - Spawn alternative approaches to explore different strategies in parallel\nExample: {\"action\": \"branch\", \"branches\": [\"try approach A\", \"try approach B\"], \"also_continue\": true}\n\nThis is an early checkpoint. You cannot terminate yet - explore more first.\n\nCall the checkpoint_decision tool with your choice. If you cannot use tools, respond with valid JSON matching one of the examples above.\n"
+          },
+          {
+            "role": "user",
+            "content": "\n---BRANCH---\n\nYou're exploring an alternative: Community co-creation: residents contribute rotating displays (home videos, family stories, 'object of the month' from a local drawer), so content is evergreen and locals return to see/curate\n\nContinue from here."
+          },
+          {
+            "role": "assistant",
+            "content": "{\"action\": \"continue\"}"
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nYou've been exploring for a while. Time to decide.\n\nYou MUST respond with EXACTLY ONE of these two actions:\n\n**CONTINUE** - Keep going on this path if you're making progress\nExample: {\"action\": \"continue\"}\n\n**BRANCH** - Spawn alternative approaches to explore different strategies in parallel\nExample: {\"action\": \"branch\", \"branches\": [\"try approach A\", \"try approach B\"], \"also_continue\": true}\n\nThis is an early checkpoint. You cannot terminate yet - explore more first.\n\nCall the checkpoint_decision tool with your choice. If you cannot use tools, respond with valid JSON matching one of the examples above.\n\nYou MUST decide now. No more exploration without a decision.\n"
+          },
+          {
+            "role": "assistant",
+            "content": "{\"action\": \"branch\", \"branches\": [\"try approach A: Gamified scavenger hunts tied to existing exhibits\", \"try approach B: Seasonal 'behind-the-scenes' workshop series\"], \"also_continue\": true}"
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nDecision point. Choose one action:\n- {\"action\": \"continue\"} - keep exploring\n- {\"action\": \"branch\", \"branches\": [\"alt 1\", \"alt 2\"]} - spawn alternatives\n- {\"action\": \"terminate\", \"output\": \"final result\"} - done with output\n\nCall checkpoint_decision or respond with JSON.\n\nYou MUST decide now. No more exploration without a decision.\n"
+          }
+        ]
+      },
+      {
+        "id": "root->87cc5b",
+        "parent": "root",
+        "title": "The 4-Week \"Limited Run\" Rotation",
+        "lens": "ALTERNATIVE",
+        "summary": "Core Idea: Treat existing artifacts as a live theater cast. Every four weeks, re-hang a small cluster of 5–10 items into a new, thematic micro-exhibit",
+        "body": "**Title: The 4-Week \"Limited Run\" Rotation**\n\n**Core Idea:** Treat existing artifacts as a live theater cast. Every four weeks, re-hang a small cluster of 5–10 items into a new, thematic micro-exhibit. Market it as a \"Limited Run\" with a specific end date to create urgency, forcing visitors to return before the \"show\" closes.\n\n**Example:** A local history museum creates a \"Secrets of the Main Street\" 4-week run using only existing documents and photos. Each month, the \"plot\" changes (e.g., \"The Great Fire,\" \"The Prohibition Era\"), requiring only new label cards and minor rearrangement.\n\n**Tradeoff:** This strategy relies heavily on consistent marketing to drive each new \"opening.\" If the community misses the announcement, the urgency factor fails, and the rotation becomes just a static display.",
+        "tradeoff": "",
+        "next": "",
+        "preview": "**Title: The 4-Week \"Limited Run\" Rotation**\n\n**Core Idea:** Treat existing artifacts as a live theater cast. Every four weeks, re-hang a small cluster of 5–10 items into a new, thematic micro-exhibit. Market it as a \"Limited Run\" with a specific end date to create urgency, forcing visitors to return before the \"show\" closes.\n\n**Example:** A local history museum creates a \"Secrets of the Main Street\" 4-week run using only existing documents and photos. Each month, the \"plot\" changes (e.g., \"The ",
+        "angle": "",
+        "status": "terminated",
+        "bodySource": "Model output · check factual claims",
+        "terminationReason": "completed",
+        "branchBrief": "Time-boxed micro-exhibits: 4-6 week rotating pop-ups using existing collection re-hung, with a ticketed/limited-run hook that creates urgency and novelty each visit",
+        "full": true,
+        "messages": [
+          {
+            "role": "system",
+            "content": "Choose ONE concrete approach to the user's question and develop it. Do not list multiple approaches. Write a short title, the core idea, one specific example, and the most important tradeoff. Keep your entire response under 90 words. Treat proposals as possibilities, not facts."
+          },
+          {
+            "role": "user",
+            "content": "How could a small local museum make repeat visits worthwhile with a tiny budget and no new permanent exhibits? Develop practical, distinct directions."
+          },
+          {
+            "role": "assistant",
+            "content": "**Title: The Rotating \"Micro-Lens\" Strategy\n\n**Core Idea:** Instead of adding objects, change the narrative perspective. Rotate the primary interpretive lens (e.g., \"Objects as Tools,\" \"Objects as Artifacts of Failure\") every month, rewriting labels and adding one new, cheaply sourced object that supports the new theme.\n\n**Example:** A local history museum shifts from a standard \"Town History\" view to a \"Sound and Silence\" theme, using old photographs to discuss ambient noise levels, paired with a single donated, broken radio.\n\n**Tradeoff:** Requires significant staff time for constant re-labeling and curatorial writing, risking burnout if not carefully scheduled."
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nYou've been exploring for a while. Time to decide.\n\nYou MUST respond with EXACTLY ONE of these two actions:\n\n**CONTINUE** - Keep going on this path if you're making progress\nExample: {\"action\": \"continue\"}\n\n**BRANCH** - Spawn alternative approaches to explore different strategies in parallel\nExample: {\"action\": \"branch\", \"branches\": [\"try approach A\", \"try approach B\"], \"also_continue\": true}\n\nThis is an early checkpoint. You cannot terminate yet - explore more first.\n\nCall the checkpoint_decision tool with your choice. If you cannot use tools, respond with valid JSON matching one of the examples above.\n"
+          },
+          {
+            "role": "user",
+            "content": "\n---BRANCH---\n\nYou're exploring an alternative: Time-boxed micro-exhibits: 4-6 week rotating pop-ups using existing collection re-hung, with a ticketed/limited-run hook that creates urgency and novelty each visit\n\nContinue from here."
+          },
+          {
+            "role": "assistant",
+            "content": "{\"action\": \"branch\", \"branches\": [\"try approach A: Community-curated 'Guest Curator' nights where locals select 5 objects\", \"try approach B: 'Object of the Month' voting via QR code with a small physical prize\"], \"also_continue\": true}"
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nYou've been exploring for a while. Time to decide.\n\nYou MUST respond with EXACTLY ONE of these two actions:\n\n**CONTINUE** - Keep going on this path if you're making progress\nExample: {\"action\": \"continue\"}\n\n**BRANCH** - Spawn alternative approaches to explore different strategies in parallel\nExample: {\"action\": \"branch\", \"branches\": [\"try approach A\", \"try approach B\"], \"also_continue\": true}\n\nThis is an early checkpoint. You cannot terminate yet - explore more first.\n\nCall the checkpoint_decision tool with your choice. If you cannot use tools, respond with valid JSON matching one of the examples above.\n\nYou MUST decide now. No more exploration without a decision.\n"
+          },
+          {
+            "role": "assistant",
+            "content": "{\"action\": \"continue\"}"
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nDecision point. Choose one action:\n- {\"action\": \"continue\"} - keep exploring\n- {\"action\": \"branch\", \"branches\": [\"alt 1\", \"alt 2\"]} - spawn alternatives\n- {\"action\": \"terminate\", \"output\": \"final result\"} - done with output\n\nCall checkpoint_decision or respond with JSON.\n\nYou MUST decide now. No more exploration without a decision.\n"
+          },
+          {
+            "role": "assistant",
+            "content": "{\"action\": \"terminate\", \"output\": \"**Title: The 4-Week 'Limited Run' Rotation**\\n\\n**Core Idea:** Treat existing artifacts as a live theater cast. Every four weeks, re-hang a small cluster of 5–10 items into a new, thematic micro-exhibit. Market it as a \"Limited Run\" with a specific end date to create urgency, forcing visitors to return before the \"show\" closes.\\n\\n**Example:** A local history museum creates a \"Secrets of the Main Street\" 4-week run using only existing documents and photos. Each month, the \"plot\" changes (e.g., \"The Great Fire,\" \"The Prohibition Era\"), requiring only new label cards and minor rearrangement.\\n\\n**Tradeoff:** This strategy relies heavily on consistent marketing to drive each new \"opening.\" If the community misses the announcement, the urgency factor fails, and the rotation becomes just a static display.\"}"
+          },
+          {
+            "role": "user",
+            "content": "\n\n---CHECKPOINT---\n\nDecision point. Choose one action:\n- {\"action\": \"continue\"} - keep exploring\n- {\"action\": \"branch\", \"branches\": [\"alt 1\", \"alt 2\"]} - spawn alternatives\n- {\"action\": \"terminate\", \"output\": \"final result\"} - done with output\n\nCall checkpoint_decision or respond with JSON.\n\nYou MUST decide now. No more exploration without a decision.\n"
+          }
+        ]
+      }
+    ],
+    "kept": [],
+    "notes": {},
+    "takeaway": "",
+    "nextMove": "",
+    "selected": "root",
+    "setAside": [],
+    "createdAt": 1789073591612,
+    "updatedAt": 1789073591612,
+    "outcome": "complete",
+    "message": "Exploration finished.",
+    "model": "qwen38-27b-jonathancoletti-uncensored-mtp-q4km",
+    "provider": "llama.cpp (local)",
+    "origin": null
+  }
+}

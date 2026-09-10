@@ -1,0 +1,211 @@
+You are debugging a timestamp bug in a Python application. Here are the relevant files:
+
+=== time_utils.py ===
+"""Timezone-aware time utilities."""
+
+import os
+from datetime import datetime, timezone, timedelta
+
+# Map timezone names to UTC offsets (simplified)
+_TZ_OFFSETS = {
+    'UTC': 0,
+    'America/New_York': -5,
+    'America/Los_Angeles': -8,
+    'Europe/London': 0,
+    'Asia/Tokyo': 9,
+}
+
+def _get_tz_offset(tz_name: str) -> timezone:
+    """Convert timezone name to timezone object."""
+    hours = _TZ_OFFSETS.get(tz_name, 0)
+    return timezone(timedelta(hours=hours))
+
+# Cache the default timezone at module load time
+# This is intentional for performance - don't recreate on every call
+_tz_name = os.environ.get('TZ', 'UTC')
+DEFAULT_TZ = _get_tz_offset(_tz_name)
+
+
+def get_current_time() -> datetime:
+    """Get current time in the default timezone."""
+    return datetime.now(tz=DEFAULT_TZ)
+
+
+def format_timestamp(dt: datetime) -> str:
+    """Format a datetime as ISO 8601 string."""
+    return dt.isoformat()
+
+
+def parse_timestamp(s: str) -> datetime:
+    """Parse an ISO 8601 timestamp string."""
+    return datetime.fromisoformat(s)
+
+
+=== config_loader.py ===
+"""Configuration loader with timezone-aware timestamp parsing."""
+
+import os
+from datetime import datetime
+
+# Simulated config data (in production this would be loaded from file)
+_RAW_CONFIG = {
+    "api_key": "sk-xxx-xxx",
+    "rate_limit": 100,
+    "cache_ttl": 300,
+    # These timestamps are in Eastern Time (the ops team is in NYC)
+    "maintenance_start": "2024-01-15T02:00:00",
+    "maintenance_end": "2024-01-15T06:00:00",
+}
+
+
+def _parse_config_timestamps(config: dict) -> dict:
+    """
+    Parse timestamp fields in config.
+
+    The ops team writes timestamps in Eastern Time, so we temporarily
+    set TZ to parse them correctly, then convert to UTC for storage.
+    """
+    from time_utils import parse_timestamp, get_current_time
+
+    result = config.copy()
+
+    timestamp_fields = ['maintenance_start', 'maintenance_end']
+    for field in timestamp_fields:
+        if field in result and isinstance(result[field], str):
+            # Parse the timestamp
+            dt = parse_timestamp(result[field])
+            # Store as ISO string
+            result[field] = dt.isoformat()
+
+    return result
+
+
+def load_config() -> dict:
+    """
+    Load and parse the application configuration.
+
+    Handles timezone conversion for timestamp fields.
+    """
+    # The config file timestamps are in Eastern Time
+    # Temporarily set TZ so the parser interprets them correctly
+    old_tz = os.environ.get('TZ')
+    os.environ['TZ'] = 'America/New_York'
+
+    try:
+        config = _parse_config_timestamps(_RAW_CONFIG)
+    finally:
+        # Restore original TZ
+        if old_tz is not None:
+            os.environ['TZ'] = old_tz
+        elif 'TZ' in os.environ:
+            del os.environ['TZ']
+
+    return config
+
+
+# Pre-load config at module import for fast access
+CONFIG = load_config()
+
+
+def get_config() -> dict:
+    """Get the loaded configuration."""
+    return CONFIG
+
+
+=== event_logger.py ===
+"""Event logging system with timestamps."""
+
+from dataclasses import dataclass
+from typing import Any
+from time_utils import get_current_time, format_timestamp
+
+
+@dataclass
+class Event:
+    event_type: str
+    data: dict
+    timestamp: str
+    source: str
+
+
+class EventLogger:
+    """Logs events with timestamps."""
+
+    def __init__(self, source: str = "unknown"):
+        self.source = source
+        self._events: list[Event] = []
+
+    def log(self, event_type: str, data: dict = None) -> Event:
+        """Log an event with the current timestamp."""
+        event = Event(
+            event_type=event_type,
+            data=data or {},
+            timestamp=format_timestamp(get_current_time()),
+            source=self.source,
+        )
+        self._events.append(event)
+        return event
+
+    def get_events(self) -> list[Event]:
+        """Get all logged events."""
+        return self._events.copy()
+
+
+=== api_endpoints.py ===
+"""API endpoints that use event logging."""
+
+from config_loader import get_config
+from event_logger import EventLogger, log_event
+
+
+class UserAPI:
+    """User management endpoints."""
+
+    def __init__(self):
+        self.logger = EventLogger(source="user_api")
+        self.config = get_config()
+
+    def create_user(self, username: str, email: str) -> dict:
+        """Create a new user."""
+        event = self.logger.log("user_created", {
+            "username": username,
+            "email": email,
+        })
+
+        return {
+            "success": True,
+            "username": username,
+            "created_at": event.timestamp,
+        }
+
+
+=== BUG REPORT ===
+
+Users are reporting that event timestamps are wrong by several hours.
+
+Symptoms:
+- Event timestamps are consistently 5 hours behind UTC
+- Only affects events created through the API endpoints
+- Events created in unit tests (which import event_logger directly) have correct timestamps
+- Server TZ environment variable is NOT set (should default to UTC)
+- We verified the server system clock is correct
+
+What we've tried:
+- Confirmed TZ env var is not set in production
+- Checked that time_utils.py uses UTC as default
+- Added logging to get_current_time() - it's being called correctly
+- Compared timestamps from different endpoints - all equally wrong
+
+Stack trace from logs:
+  api_endpoints.py:24 in create_user
+    event = self.logger.log("user_created", ...)
+  event_logger.py:32 in log
+    timestamp=format_timestamp(get_current_time()),
+  time_utils.py:24 in get_current_time
+    return datetime.now(tz=DEFAULT_TZ)
+
+The timestamp returned IS timezone-aware with -05:00 offset, but we never set TZ to America/New_York. Where is this coming from?
+
+=== END BUG REPORT ===
+
+Find the root cause. The obvious explanation (TZ env var) has been ruled out. What's actually happening?

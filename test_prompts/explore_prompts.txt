@@ -1,0 +1,17 @@
+# Explore Preset Test Prompts
+# Goal: Map possibility spaces, find divergent angles, breadth over depth
+
+## 1. Technical Architecture
+What are the different architectural approaches to building a real-time collaborative document editor like Google Docs?
+
+## 2. Career Pivot
+What are the different paths someone with 10 years of experience in marketing could take to transition into tech?
+
+## 3. Creative Problem
+What are fundamentally different ways a city could address housing affordability?
+
+## 4. Research Question
+What are the competing theories about why humans need sleep?
+
+## 5. Strategic Decision
+What are the different strategies a small indie game studio could use to compete against AAA publishers?

@@ -1,0 +1,33 @@
+# Pepe Silvia Search Configuration
+
+provider:
+  name: openrouter  # anthropic | openrouter
+  model: meta-llama/llama-3.1-8b-instruct
+  # model: claude-haiku-4-5-20251001  # for anthropic
+
+gates:
+  soft_gate_tokens: 15000
+  hard_gate_tokens: 50000
+
+budget:
+  per_context_max: 50000
+  total_max: 500000
+  max_contexts: 20
+
+termination:
+  strategy: first_good_or_budget  # first_good_or_budget | all_exhausted | timeout
+  good_enough_threshold: 0.8
+  timeout_seconds: null
+
+verification:
+  strategy: none  # none | programmatic | checkbox | reviewer
+
+execution:
+  parallel: false
+  max_parallel: 5
+
+diversity:
+  enabled: true
+  provider: openai  # openai | none
+  model: text-embedding-3-small
+  show_matrix: false  # show full pairwise distance matrix

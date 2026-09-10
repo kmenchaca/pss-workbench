@@ -1,0 +1,17 @@
+# Write Preset Test Prompts
+# Goal: Creative/professional writing, moderate depth, genuinely different pieces
+
+## 1. Short Fiction
+Write the opening scene of a story about someone who discovers their childhood home is being demolished.
+
+## 2. Professional Email
+Write an email from a product manager explaining to stakeholders why a major feature needs to be delayed by 3 months.
+
+## 3. Personal Essay
+Write a short personal essay about the experience of learning something difficult as an adult.
+
+## 4. Product Description
+Write product copy for a new smart home device that helps people reduce their energy consumption.
+
+## 5. Narrative Non-fiction
+Write the opening of a piece about a day in the life of a night shift emergency room nurse.

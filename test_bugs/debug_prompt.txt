@@ -1,0 +1,123 @@
+You are debugging a cache staleness bug. Here is the code:
+
+```python
+"""
+A caching layer for user profile data.
+
+BUG REPORT:
+Users are seeing stale profile data after updates. The cache TTL is 5 minutes,
+but users report seeing old data for much longer - sometimes hours.
+
+We've tried:
+- Reducing TTL to 1 minute (didn't help)
+- Adding cache.invalidate() calls after updates (didn't help)
+- Checking Redis connectivity (it's fine)
+
+The issue seems intermittent - some users see fresh data, others don't.
+Happens more often on mobile than desktop, but we can't figure out why.
+
+Stack trace from a user complaint:
+  File "cache_bug.py", line 89, in get_user_profile
+    return self.cache.get(cache_key) or self._fetch_and_cache(user_id)
+  File "cache_bug.py", line 94, in _fetch_and_cache
+    self.cache.set(cache_key, profile, ttl=self.ttl)
+
+The cache operations look correct. We're stumped.
+"""
+
+import hashlib
+import time
+from dataclasses import dataclass
+from typing import Any
+
+
+@dataclass
+class UserProfile:
+    user_id: str
+    username: str
+    email: str
+    avatar_url: str
+    updated_at: float
+
+
+class SimpleCache:
+    """In-memory cache with TTL support."""
+
+    def __init__(self):
+        self._store: dict[str, tuple[Any, float]] = {}
+
+    def get(self, key: str) -> Any | None:
+        if key not in self._store:
+            return None
+        value, expires_at = self._store[key]
+        if time.time() > expires_at:
+            del self._store[key]
+            return None
+        return value
+
+    def set(self, key: str, value: Any, ttl: int = 300) -> None:
+        expires_at = time.time() + ttl
+        self._store[key] = (value, expires_at)
+
+    def invalidate(self, key: str) -> bool:
+        if key in self._store:
+            del self._store[key]
+            return True
+        return False
+
+
+class UserProfileService:
+    """Service for fetching and caching user profiles."""
+
+    def __init__(self, cache: SimpleCache, ttl: int = 300):
+        self.cache = cache
+        self.ttl = ttl
+        self._db = {}
+
+    def _generate_cache_key(self, user_id: str, request_context: dict) -> str:
+        """Generate a cache key for the user profile."""
+        platform = request_context.get("platform", "unknown")
+        version = request_context.get("app_version", "0.0.0")
+        key_parts = f"profile:{user_id}:{platform}:{version}"
+        return hashlib.md5(key_parts.encode()).hexdigest()[:16]
+
+    def get_user_profile(self, user_id: str, request_context: dict = None) -> UserProfile | None:
+        """Get user profile, using cache if available."""
+        request_context = request_context or {}
+        cache_key = self._generate_cache_key(user_id, request_context)
+        cached = self.cache.get(cache_key)
+        if cached:
+            return cached
+        return self._fetch_and_cache(user_id, cache_key)
+
+    def _fetch_and_cache(self, user_id: str, cache_key: str) -> UserProfile | None:
+        """Fetch from DB and cache the result."""
+        profile = self._db.get(user_id)
+        if profile:
+            from copy import deepcopy
+            cached_copy = deepcopy(profile)
+            self.cache.set(cache_key, cached_copy, ttl=self.ttl)
+            return cached_copy
+        return profile
+
+    def update_user_profile(self, user_id: str, **updates) -> UserProfile | None:
+        """Update user profile and invalidate cache."""
+        profile = self._db.get(user_id)
+        if not profile:
+            return None
+
+        for key, value in updates.items():
+            if hasattr(profile, key):
+                setattr(profile, key, value)
+        profile.updated_at = time.time()
+
+        # Invalidate cache
+        cache_key = f"profile:{user_id}"
+        self.cache.invalidate(cache_key)
+
+        return profile
+```
+
+The test confirms the bug: after update_user_profile(), both mobile and desktop clients still see the old username.
+
+Find the root cause. Form hypotheses about what could be wrong, then narrow down to the actual bug.
